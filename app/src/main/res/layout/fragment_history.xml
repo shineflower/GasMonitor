@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="历史数据--选择列表"
+        android:background="@color/holo_blue_dark"
         android:gravity="center_horizontal"
-        android:padding="5sp"
-        android:textSize="26sp"
-        android:background="#fffff8fc" />
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/history_listview"
-        >
+        android:padding="10dp"
+        android:text="历史数据--选择列表"
+        android:textSize="25sp" />
 
-        </ListView>
+    <!--<ListView
+        android:id="@+id/history_listview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />-->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="正在建设中。。。"
+        android:textSize="25sp" />
 
 </LinearLayout>

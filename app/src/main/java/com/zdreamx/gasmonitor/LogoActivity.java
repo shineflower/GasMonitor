@@ -37,7 +37,7 @@ public class LogoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logo);
         TextView ver = (TextView) findViewById(R.id.textVersion);
-        ver.setText("版本号:V1.0");
+        ver.setText("版本号:"+ Utils.getVersionName(this));
 
         //设置网络请求参数
         context=this;

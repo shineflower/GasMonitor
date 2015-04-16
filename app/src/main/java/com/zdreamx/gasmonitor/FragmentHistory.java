@@ -35,8 +35,8 @@ public class FragmentHistory extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history,container,false);
-        listview = (ListView) view.findViewById(R.id.history_listview);
-        myHandler.sendEmptyMessage(0);
+//        listview = (ListView) view.findViewById(R.id.history_listview);
+//        myHandler.sendEmptyMessage(0);
         return view;
     }
     private List<Map<String,String>> getData(){
@@ -47,7 +47,7 @@ public class FragmentHistory extends Fragment {
         map.put("note","shosugjeige");
         list.add(map);
 
-         map = new HashMap<String,String>();
+        map = new HashMap<String,String>();
         map.put("nick","测试2");
         map.put("mobile","13548484");
         map.put("note","shosugjeige");

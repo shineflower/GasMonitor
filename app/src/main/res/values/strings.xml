@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">中粮煤层气监控系统(内部测试版)</string>
+    <string name="app_name">中联煤层气监控系统(内部测试版)</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">系统设置</string>
@@ -8,6 +8,8 @@
 
     <string name="logo_update">系统检查更新中...</string>
 
-    <string name="server_ip">121.40.185.123:8080</string>
+    <!--<string name="server_ip">121.40.185.123:8080</string>-->
+    <string name="server_ip">115.28.21.121:8080</string>
     <string name="server_update_file">/static/app/android/update.txt</string>
+    <string name="title_activity_view_current">ViewCurrentActivity</string>
 </resources>

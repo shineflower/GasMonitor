@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.zdreamx.gasmonitor.ViewCurrentActivity">
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:rowCount="4">
+
+        <TextView
+            android:id="@+id/Mytime"
+            android:layout_columnSpan="3"
+            android:layout_gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/Wellpress" />
+
+        <TextView
+            android:id="@+id/Taopress" />
+
+        <TextView
+            android:id="@+id/Liquidhigh" />
+
+        <TextView
+            android:id="@+id/Gasstandflow" />
+
+        <TextView
+            android:id="@+id/Gastotalflow" />
+
+        <TextView
+            android:id="@+id/Gaspress" />
+
+        <TextView
+            android:id="@+id/Speed" />
+
+        <TextView
+            android:id="@+id/Motortemp" />
+
+        <TextView
+            android:id="@+id/Motordcbus" />
+    </GridLayout>
+
+    <lecho.lib.hellocharts.view.LineChartView
+        android:id="@+id/chart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+</LinearLayout>
