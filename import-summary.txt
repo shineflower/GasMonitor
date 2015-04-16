@@ -1,0 +1,118 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .idea\
+* .idea\.name
+* .idea\compiler.xml
+* .idea\copyright\
+* .idea\copyright\profiles_settings.xml
+* .idea\encodings.xml
+* .idea\misc.xml
+* .idea\modules.xml
+* .idea\scopes\
+* .idea\scopes\scope_settings.xml
+* .idea\vcs.xml
+* .idea\workspace.xml
+* AndroidManifest.xml
+* library.iml
+* proguard-android-optimize.txt
+* src-gons2.2.4\
+* src-gons2.2.4\com\
+* src-gons2.2.4\com\google\
+* src-gons2.2.4\com\google\gson\
+* src-gons2.2.4\com\google\gson\DefaultDateTypeAdapter.java
+* src-gons2.2.4\com\google\gson\ExclusionStrategy.java
+* src-gons2.2.4\com\google\gson\FieldAttributes.java
+* src-gons2.2.4\com\google\gson\FieldNamingPolicy.java
+* src-gons2.2.4\com\google\gson\FieldNamingStrategy.java
+* src-gons2.2.4\com\google\gson\Gson.java
+* src-gons2.2.4\com\google\gson\GsonBuilder.java
+* src-gons2.2.4\com\google\gson\InstanceCreator.java
+* src-gons2.2.4\com\google\gson\JsonArray.java
+* src-gons2.2.4\com\google\gson\JsonDeserializationContext.java
+* src-gons2.2.4\com\google\gson\JsonDeserializer.java
+* src-gons2.2.4\com\google\gson\JsonElement.java
+* src-gons2.2.4\com\google\gson\JsonIOException.java
+* src-gons2.2.4\com\google\gson\JsonNull.java
+* src-gons2.2.4\com\google\gson\JsonObject.java
+* src-gons2.2.4\com\google\gson\JsonParseException.java
+* src-gons2.2.4\com\google\gson\JsonParser.java
+* src-gons2.2.4\com\google\gson\JsonPrimitive.java
+* src-gons2.2.4\com\google\gson\JsonSerializationContext.java
+* src-gons2.2.4\com\google\gson\JsonSerializer.java
+* src-gons2.2.4\com\google\gson\JsonStreamParser.java
+* src-gons2.2.4\com\google\gson\JsonSyntaxException.java
+* src-gons2.2.4\com\google\gson\LongSerializationPolicy.java
+* src-gons2.2.4\com\google\gson\TreeTypeAdapter.java
+* src-gons2.2.4\com\google\gson\TypeAdapter.java
+* src-gons2.2.4\com\google\gson\TypeAdapterFactory.java
+* src-gons2.2.4\com\google\gson\annotations\
+* src-gons2.2.4\com\google\gson\annotations\Expose.java
+* src-gons2.2.4\com\google\gson\annotations\SerializedName.java
+* src-gons2.2.4\com\google\gson\annotations\Since.java
+* src-gons2.2.4\com\google\gson\annotations\Until.java
+* src-gons2.2.4\com\google\gson\annotations\package-info.java
+* src-gons2.2.4\com\google\gson\internal\
+* src-gons2.2.4\com\google\gson\internal\$Gson$Preconditions.java
+* src-gons2.2.4\com\google\gson\internal\$Gson$Types.java
+* src-gons2.2.4\com\google\gson\internal\ConstructorConstructor.java
+* src-gons2.2.4\com\google\gson\internal\Excluder.java
+* src-gons2.2.4\com\google\gson\internal\JsonReaderInternalAccess.java
+* src-gons2.2.4\com\google\gson\internal\LazilyParsedNumber.java
+* src-gons2.2.4\com\google\gson\internal\LinkedTreeMap.java
+* src-gons2.2.4\com\google\gson\internal\ObjectConstructor.java
+* src-gons2.2.4\com\google\gson\internal\Primitives.java
+* src-gons2.2.4\com\google\gson\internal\Streams.java
+* src-gons2.2.4\com\google\gson\internal\UnsafeAllocator.java
+* src-gons2.2.4\com\google\gson\internal\bind\
+* src-gons2.2.4\com\google\gson\internal\bind\ArrayTypeAdapter.java
+* src-gons2.2.4\com\google\gson\internal\bind\CollectionTypeAdapterFactory.java
+* src-gons2.2.4\com\google\gson\internal\bind\DateTypeAdapter.java
+* src-gons2.2.4\com\google\gson\internal\bind\JsonTreeReader.java
+* src-gons2.2.4\com\google\gson\internal\bind\JsonTreeWriter.java
+* src-gons2.2.4\com\google\gson\internal\bind\MapTypeAdapterFactory.java
+* src-gons2.2.4\com\google\gson\internal\bind\ObjectTypeAdapter.java
+* src-gons2.2.4\com\google\gson\internal\bind\ReflectiveTypeAdapterFactory.java
+* src-gons2.2.4\com\google\gson\internal\bind\SqlDateTypeAdapter.java
+* src-gons2.2.4\com\google\gson\internal\bind\TimeTypeAdapter.java
+* src-gons2.2.4\com\google\gson\internal\bind\TypeAdapterRuntimeTypeWrapper.java
+* src-gons2.2.4\com\google\gson\internal\bind\TypeAdapters.java
+* src-gons2.2.4\com\google\gson\internal\package-info.java
+* src-gons2.2.4\com\google\gson\package-info.java
+* src-gons2.2.4\com\google\gson\reflect\
+* src-gons2.2.4\com\google\gson\reflect\TypeToken.java
+* src-gons2.2.4\com\google\gson\reflect\package-info.java
+* src-gons2.2.4\com\google\gson\stream\
+* src-gons2.2.4\com\google\gson\stream\JsonReader.java
+* src-gons2.2.4\com\google\gson\stream\JsonScope.java
+* src-gons2.2.4\com\google\gson\stream\JsonToken.java
+* src-gons2.2.4\com\google\gson\stream\JsonWriter.java
+* src-gons2.2.4\com\google\gson\stream\MalformedJsonException.java
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* src\ => liteHttp\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
