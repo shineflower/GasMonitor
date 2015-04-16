@@ -269,7 +269,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
         mSpeed.setText("运行频率：" + String.valueOf(mNodeDatasReturnDatas.Datas[0].Data.Speed));
         mMotortemp.setText("设定频率：" + String.valueOf(mNodeDatasReturnDatas.Datas[0].Data.Motortemp));
         mMotordcbus.setText("母线电压：" + String.valueOf(mNodeDatasReturnDatas.Datas[0].Data.Motordcbus));
-
+ 
         //获取文本的默认颜色
         if (!mIsRefreshing) {
             mDefaultTextColor = mWellpress .getCurrentTextColor();
