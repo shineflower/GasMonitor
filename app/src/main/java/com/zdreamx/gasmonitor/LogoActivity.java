@@ -56,6 +56,7 @@ public class LogoActivity extends Activity {
             Intent it = new Intent(LogoActivity.this,LoginActivity.class); //需要跳转到登录页面
             startActivity(it);
             finish();
+            return;
         }
         String loginUrl="http://"+getResources().getString(R.string.server_ip)+"/api/login?uname=" + uname + "&passwd=" + passwd;
         asyncExecutor.execute(new Request(loginUrl),new HttpModelHandler<apiLoginReturn>() {
