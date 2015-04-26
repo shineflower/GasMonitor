@@ -1,10 +1,7 @@
 package com.zdreamx.gasmonitor;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,7 +14,7 @@ import android.widget.TextView;
 import com.loveplusplus.update.UpdateChecker;
 
 
-public class MainActivity extends FragmentActivity implements OnClickListener {
+public class MainActivity extends ActionBarActivity implements OnClickListener {
 
     private FragmentCurrent fgCurrent;
     private FragmentHistory fgHistory;
@@ -96,6 +93,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                 } else { //如果不为空 则直接显示出来
                     transaction.show(fgCurrent);
                 }
+                setTitle(R.string.currentdata);
                 break;
             case 1:
                 history_text.setTextColor(blue);
@@ -105,6 +103,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                 } else {
                     transaction.show(fgHistory);
                 }
+                setTitle(R.string.historydata);
                 break;
             case 2:
                 warning_text.setTextColor(blue);
@@ -114,6 +113,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                 } else {
                     transaction.show(fgWarning);
                 }
+                setTitle(R.string.warning);
                 break;
             case 3:
                 set_text.setTextColor(blue);
@@ -123,6 +123,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                 } else {
                     transaction.show(fgSet);
                 }
+                setTitle(R.string.setting);
         }
         transaction.commit();
     }
@@ -155,8 +156,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        // getMenuInflater().inflate(R.menu.menu_main, menu);
+        return false;
     }
 
     @Override

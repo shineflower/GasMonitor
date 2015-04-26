@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.zdreamx.gasmonitor.ViewCurrentActivity">
+
+    <item
+        android:id="@+id/action_history_query"
+        android:orderInCategory="100"
+        android:title="筛选"
+        app:showAsAction="always" />
+</menu>

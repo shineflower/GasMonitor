@@ -12,4 +12,9 @@
     <string name="server_ip">115.28.21.121:8080</string>
     <string name="server_update_file">/static/app/android/update.txt</string>
     <string name="title_activity_view_current">ViewCurrentActivity</string>
+
+    <string name="currentdata">实时数据</string>
+    <string name="historydata">历史数据</string>
+    <string name="warning">报警</string>
+    <string name="setting">设置</string>
 </resources>

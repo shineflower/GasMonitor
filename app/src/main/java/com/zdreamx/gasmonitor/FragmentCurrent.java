@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -168,10 +167,12 @@ public class FragmentCurrent extends Fragment {
 
         }
     };
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
+
         View view = inflater.inflate(R.layout.fragment_current,container,false);
         listview = (ListView) view.findViewById(R.id.cur_listview);
         //建立异步请求实例
@@ -197,6 +198,7 @@ public class FragmentCurrent extends Fragment {
         });
         return view;
     }
+
 //    private List<Map<String,String>> getData(){
 //        List<Map<String,String>> list = new ArrayList<Map<String, String>>();
 //        Map<String,String> map = new HashMap<String,String>();

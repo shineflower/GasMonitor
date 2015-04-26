@@ -7,6 +7,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
@@ -41,21 +44,33 @@ public class FragmentHistory extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_history,container,false);
         mListView = (ListView) view.findViewById(R.id.history_listview);
         mHistoryHint = (TextView) view.findViewById(R.id.history_hint);
         mNick = (TextView) view.findViewById(R.id.mobile);
 
-        mChoose = (TextView) view.findViewById(R.id.action_choose);
-        mChoose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent chooseIntent = new Intent(getActivity(), ChooseItemActivity.class);
-                startActivityForResult(chooseIntent, REQUEST_CODE);
-            }
-        });
-
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        getActivity().setTitle(R.string.historydata);
+        super.onResume();
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_history_query, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_history_query) {
+            Intent chooseIntent = new Intent(getActivity(), ChooseItemActivity.class);
+            startActivityForResult(chooseIntent, REQUEST_CODE);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
