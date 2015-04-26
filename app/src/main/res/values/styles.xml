@@ -20,8 +20,12 @@
     <style name="ButtonBarButton" />
 
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">@color/holo_blue</item>
+        <item name="colorPrimary">@color/md_blue_500</item>
         <item name="colorPrimaryDark">@color/holo_blue_dark</item>
+        <item name="android:textColorPrimary">@color/md_blue_100</item>
+        <item name="actionMenuTextColor">@color/md_blue_100</item>
+        <item name="editTextColor">@color/primary_text_default_material_light</item>
+        <item name="android:textColor">@color/primary_dark_material_light</item>
     </style>
 
     <style name="AppTheme" parent="AppBaseTheme"></style>

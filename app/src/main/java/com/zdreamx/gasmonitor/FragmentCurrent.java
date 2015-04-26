@@ -27,7 +27,10 @@ import com.litesuits.http.request.Request;
 import com.litesuits.http.response.Response;
 import com.litesuits.http.response.handler.HttpModelHandler;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,7 +107,17 @@ public class FragmentCurrent extends Fragment {
                                 if(o.Result) { //返回正确
                                     //重新获取map
                                     Map<String,String> new_map = list.get(cur_listIndex); //获取列表中的map
-                                    new_map.put("time","更新时间 "+o.Mytime);
+
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                    long diff = 0;
+                                    try {
+                                        Date updateTime = sdf.parse(o.Mytime);
+                                        diff = System.currentTimeMillis() - updateTime.getTime();
+
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                    new_map.put("time","更新时间 "+o.Mytime +"（" + getDuring(diff) + " )");
                                     //生成显示内容为html格式
                                     String html="<html><head></head><body>" +
                                             "<div><span>井底压力："+ String.valueOf(o.Data.Wellpress) +"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
@@ -125,6 +138,23 @@ public class FragmentCurrent extends Fragment {
                                         mProgressDialog.dismiss();
                                     }
                                 }
+                            }
+
+                            private String getDuring(long diff) {
+                                diff /= 1000;
+                                if (diff < 0) {
+                                    return null;
+                                } else if (diff < 60) {
+                                    return "刚刚";
+                                } else if (diff < 60 * 60) {
+                                    return diff / 60 + "分钟前";
+                                } else if (diff < 60 * 60 * 60) {
+                                    return diff / 60 / 60 + "小时前";
+                                } else  {
+                                    return diff / 60 / 60 / 24 + "天前";
+                                }
+
+
                             }
 
                             @Override

@@ -103,6 +103,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_current);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         mobile = intent.getStringExtra("mobile"); //提前号码和昵称
         nick = intent.getStringExtra("nick");
@@ -160,12 +161,11 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
         if (id == R.id.action_refresh) {
             //刷新
             mProgressDialog.show();
-
             mIsRefreshing = true;
-
             myHandler.sendEmptyMessage(0);
 
-            return true;
+        } else if (id == android.R.id.home) {
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
