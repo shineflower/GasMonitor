@@ -44,7 +44,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
     private Utils.NodeDatasReturnDatas  mNodeDatasReturnDatas;
     List<PointValue> mPointValues = new ArrayList<PointValue>();
     List<AxisValue> mAxisValues = new ArrayList<AxisValue>();
-    private int blue = 0xFF0AB2FB;
+    public static final int BLUE = 0xFF0AB2FB;
     private int mDefaultTextColor;
     private ProgressDialog mProgressDialog;
     private boolean mIsRefreshing = false;  //是否刷新
@@ -85,7 +85,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
                                 mAxisValues.add(new AxisValue(i).setLabel(o.Datas[o.Count - 1 - i].Mytime)); //为每个对应的i（X轴显示的）设置相应的label
                                 mPointValues.add(new PointValue(i, o.Datas[o.Count - 1 - i].Data.Wellpress));
                                 showLineChartView();
-                                mWellpress.setTextColor(blue);
+                                mWellpress.setTextColor(BLUE);
                             }
                         }
                     }
@@ -185,7 +185,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
                 }
                 showLineChartView();
                 cleanAllTextColor();
-                mWellpress.setTextColor(blue);
+                mWellpress.setTextColor(BLUE);
                 break;
             case TAOPRESS:
                 for (int i = 0; i < mNodeDatasReturnDatas.Count; i++) {
@@ -193,7 +193,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
                 }
                 showLineChartView();
                 cleanAllTextColor();
-                mTaopress.setTextColor(blue);
+                mTaopress.setTextColor(BLUE);
                 break;
             case LIQUIDHIGH:
                 for (int i = 0; i < mNodeDatasReturnDatas.Count; i++) {
@@ -201,7 +201,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
                 }
                 showLineChartView();
                 cleanAllTextColor();
-                mLiquidhigh.setTextColor(blue);
+                mLiquidhigh.setTextColor(BLUE);
                 break;
             case GASSTANDFLOW:
                 for (int i = 0; i < mNodeDatasReturnDatas.Count; i++) {
@@ -209,7 +209,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
                 }
                 showLineChartView();
                 cleanAllTextColor();
-                mGasstandflow.setTextColor(blue);
+                mGasstandflow.setTextColor(BLUE);
                 break;
             case GASTOTALFLOW:
                 for (int i = 0; i < mNodeDatasReturnDatas.Count; i++) {
@@ -217,7 +217,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
                 }
                 showLineChartView();
                 cleanAllTextColor();
-                mGastotalflow.setTextColor(blue);
+                mGastotalflow.setTextColor(BLUE);
                 break;
             case GASPRESS:
                 for (int i = 0; i < mNodeDatasReturnDatas.Count; i++) {
@@ -225,7 +225,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
                 }
                 showLineChartView();
                 cleanAllTextColor();
-                mGaspress.setTextColor(blue);
+                mGaspress.setTextColor(BLUE);
                 break;
             case SPEED:
                 for (int i = 0; i < mNodeDatasReturnDatas.Count; i++) {
@@ -233,7 +233,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
                 }
                 showLineChartView();
                 cleanAllTextColor();
-                mSpeed.setTextColor(blue);
+                mSpeed.setTextColor(BLUE);
                 break;
             case MOTORTEMP:
                 for (int i = 0; i < mNodeDatasReturnDatas.Count; i++) {
@@ -241,7 +241,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
                 }
                 showLineChartView();
                 cleanAllTextColor();
-                mMotortemp.setTextColor(blue);
+                mMotortemp.setTextColor(BLUE);
                 break;
             case MOTORDCBUS:
                 for (int i = 0; i < mNodeDatasReturnDatas.Count; i++) {
@@ -249,7 +249,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
                 }
                 showLineChartView();
                 cleanAllTextColor();
-                mMotordcbus.setTextColor(blue);
+                mMotordcbus.setTextColor(BLUE);
                 break;
         }
 
@@ -277,7 +277,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
     }
 
     private void showLineChartView() {
-        Line line = new Line(mPointValues).setColor(blue).setCubic(false);
+        Line line = new Line(mPointValues).setColor(BLUE).setCubic(false);
         List<Line> lines = new ArrayList<Line>();
         lines.add(line);
         LineChartData data = new LineChartData();
@@ -286,7 +286,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
         //坐标轴
         Axis axisX = new Axis(); //X轴
         axisX.setHasTiltedLabels(true);
-        axisX.setTextColor(blue);
+        axisX.setTextColor(BLUE);
         axisX.setName("采集时间");
         axisX.setMaxLabelChars(10);
         axisX.setValues(mAxisValues);
@@ -294,7 +294,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
 
         Axis axisY = new Axis();  //Y轴
         axisY.setMaxLabelChars(7); //默认是3，只能看最后三个数字
-        axisY.setTextColor(blue); //跟折线的颜色保持一致
+        axisY.setTextColor(BLUE); //跟折线的颜色保持一致
         data.setAxisYLeft(axisY);
 
         //设置行为属性，支持缩放、滑动以及平移
@@ -386,6 +386,6 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
     private void updateLineChartView(int id) {
         showLineChartView();
         cleanAllTextColor();
-        ((TextView)findViewById(id)).setTextColor(blue);
+        ((TextView)findViewById(id)).setTextColor(BLUE);
     }
 }

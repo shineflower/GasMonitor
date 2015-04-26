@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,15 +20,16 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.gc.materialdesign.views.ButtonFlat;
 import com.litesuits.http.LiteHttpClient;
 import com.litesuits.http.async.HttpAsyncExecutor;
 import com.litesuits.http.exception.HttpException;
 import com.litesuits.http.request.Request;
 import com.litesuits.http.response.Response;
 import com.litesuits.http.response.handler.HttpModelHandler;
+import com.zdreamx.gasmonitor.view.OnWheelScrollListener;
 import com.zdreamx.gasmonitor.view.ScreenInfo;
 import com.zdreamx.gasmonitor.view.WheelMain;
+import com.zdreamx.gasmonitor.view.WheelView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,10 +40,9 @@ import java.util.List;
 /**
  * Created by Ashia on 2015/4/20.
  */
-public class ChooseItemActivity extends ActionBarActivity {
+public class ChooseItemActivity extends ActionBarActivity implements OnWheelScrollListener, View.OnClickListener {
     private Context context;
     private Spinner spinner;
-    private ButtonFlat startButton, endButton;
     private EditText startTime, endTime;
 
     private View timePickerView;
@@ -56,6 +55,8 @@ public class ChooseItemActivity extends ActionBarActivity {
 
     private static final String DEFAULT_SPINNER_STRING = "点击选择";
     private static final int REQUEST_HISTORY_DATA = 0;
+
+    private int defaultTextColor, second;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -109,8 +110,6 @@ public class ChooseItemActivity extends ActionBarActivity {
 
         spinner = (Spinner) findViewById(R.id.spinner);
 
-        startButton = (ButtonFlat) findViewById(R.id.select_time_start);
-        endButton = (ButtonFlat) findViewById(R.id.select_time_end);
         startTime = (EditText) findViewById(R.id.start_time);
         endTime = (EditText) findViewById(R.id.end_time);
 
@@ -165,7 +164,6 @@ public class ChooseItemActivity extends ActionBarActivity {
             }
         });
 
-
         View timePickerView = LayoutInflater.from(context).inflate(R.layout.time_picker, null);
         ScreenInfo screenInfo = new ScreenInfo(this);
         wheelMain = new WheelMain(timePickerView, true);
@@ -177,8 +175,19 @@ public class ChooseItemActivity extends ActionBarActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
-        final int second = calendar.get(Calendar.SECOND);
+        second = calendar.get(Calendar.SECOND);
         wheelMain.initDateTimePicker(year, month, day, hour, minute);
+
+        WheelView wv_year = (WheelView) wheelMain.getView().findViewById(R.id.year);
+        WheelView wv_month = (WheelView) wheelMain.getView().findViewById(R.id.month);
+        WheelView wv_day = (WheelView) wheelMain.getView().findViewById(R.id.day);
+        WheelView wv_hour = (WheelView) wheelMain.getView().findViewById(R.id.hour);
+        WheelView wv_min = (WheelView) wheelMain.getView().findViewById(R.id.min);
+        wv_year.addScrollingListener(this);
+        wv_month.addScrollingListener(this);
+        wv_day.addScrollingListener(this);
+        wv_hour.addScrollingListener(this);
+        wv_min.addScrollingListener(this);
 
         LinearLayout parent = (LinearLayout) findViewById(R.id.choose_item_parent);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -189,30 +198,13 @@ public class ChooseItemActivity extends ActionBarActivity {
         startTime.setText(wheelMain.getTime() + ":" + (second < 10 ? "0" + second : second));
         endTime.setText(wheelMain.getTime() + ":" + (second < 10 ? "0" + second : second));
 
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!TextUtils.isEmpty(endTime.getText().toString()) && parseStringToDate(wheelMain.getTime() + ":" + (second < 10 ? "0" + second : second)) > parseStringToDate(endTime.getText().toString())) {
-                    Toast.makeText(context, "截止日期必须晚于起始日期", Toast.LENGTH_LONG).show();
-                } else {
-                    startTime.setText(wheelMain.getTime() + ":" + (second < 10 ? "0" + second : second));
-                }
-            }
-        });
-
-        endButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (parseStringToDate(wheelMain.getTime() + ":" + second) <= parseStringToDate(startTime.getText().toString())) {
-                    Toast.makeText(context, "截止日期必须晚于起始日期", Toast.LENGTH_LONG).show();
-                } else {
-                    endTime.setText(wheelMain.getTime() + ":" + (second < 10 ? "0" + second : second));
-                }
-            }
-        });
+        defaultTextColor = startTime.getCurrentTextColor();
 
         client = LiteHttpClient.newApacheHttpClient(this);
         asyncExecutor = HttpAsyncExecutor.newInstance(client);
+
+        startTime.setOnClickListener(this);
+        endTime.setOnClickListener(this);
     }
 
     //将字符串类型转化成Date类型
@@ -240,13 +232,43 @@ public class ChooseItemActivity extends ActionBarActivity {
                 finish();
                 break;
             case R.id.action_search:
-                if(mobile == null || TextUtils.isEmpty(startTime.getText().toString()) || TextUtils.isEmpty(endTime.getText().toString())) {
-                    Toast.makeText(this, "请选择查询井口和日期", Toast.LENGTH_LONG).show();
-                }else {
+                if(mobile == null) {
+                    Toast.makeText(this, "请选择查询井口", Toast.LENGTH_LONG).show();
+                } else if (parseStringToDate(startTime.getText().toString()) > parseStringToDate(endTime.getText().toString())) {
+                    Toast.makeText(this, "开始日期不能晚于截止日期", Toast.LENGTH_LONG).show();
+                } else {
                     mHandler.sendEmptyMessage(REQUEST_HISTORY_DATA);
                 }
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onScrollingStarted(WheelView wheel) {
+
+    }
+
+    @Override
+    public void onScrollingFinished(WheelView wheel) {
+        if (startTime.getCurrentTextColor() == ViewCurrentActivity.BLUE) {
+            startTime.setText(wheelMain.getTime() + ":" + (second < 10 ? "0" + second : second));
+        } else if (endTime.getCurrentTextColor() == ViewCurrentActivity.BLUE) {
+            endTime.setText(wheelMain.getTime() + ":" + (second < 10 ? "0" + second : second));
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.start_time:
+                startTime.setTextColor(ViewCurrentActivity.BLUE);
+                endTime.setTextColor(defaultTextColor);
+                break;
+            case R.id.end_time:
+                endTime.setTextColor(ViewCurrentActivity.BLUE);
+                startTime.setTextColor(defaultTextColor);
+                break;
+        }
     }
 }
