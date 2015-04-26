@@ -3,7 +3,6 @@ package com.zdreamx.gasmonitor;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;

@@ -45,7 +45,7 @@ public class FragmentCurrent extends Fragment {
     private ListAdapter listAdapter; //列表适配器
     private int cur_listIndex; //用于异步获取数据当前点的索引值
     private  String getlatest_url;
-    List<Map<String,String>> list = new ArrayList<Map<String, String>>();//列表数据map
+    static List<Map<String,String>> list = new ArrayList<Map<String, String>>();//列表数据map
     private ProgressDialog mProgressDialog;
     private Handler myHandler = new Handler(){
         @Override

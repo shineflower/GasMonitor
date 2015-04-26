@@ -7,4 +7,7 @@
     <color name="holo_orange_dark">#FF8800</color>
     <color name="holo_orange">#FFBB33</color>
 
+    <color name="mdtp_accent_color">#009688</color>
+    <color name="mdtp_accent_color_dark">#00796b</color>
+
 </resources>

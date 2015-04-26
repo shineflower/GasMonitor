@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="fill_parent"
+
+    <GridLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:columnCount="3"
+        android:rowCount="3">
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:text="ZL-25"
-            android:gravity="center"
-            android:id="@+id/nick"/>
+            android:id="@+id/Wellpress" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="15sp"
-            android:text="13750832433"
-            android:id="@+id/mobile"/>
-        </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            android:id="@+id/Taopress" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/note"/>
-        </LinearLayout>
+            android:id="@+id/Liquidhigh" />
+
+        <TextView
+            android:id="@+id/Gasstandflow" />
+
+        <TextView
+            android:id="@+id/Gastotalflow" />
+
+        <TextView
+            android:id="@+id/Gaspress" />
+
+        <TextView
+            android:id="@+id/Speed" />
+
+        <TextView
+            android:id="@+id/Motortemp" />
+
+        <TextView
+            android:id="@+id/Motordcbus" />
+    </GridLayout>
 
 </LinearLayout>
