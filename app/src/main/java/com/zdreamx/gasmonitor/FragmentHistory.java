@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public class FragmentHistory extends Fragment {
     private ListView mListView;
-    private TextView mHistoryHint, mChoose, mNick;
+    private TextView mHistoryHint, mNick;
     private Utils.NodeDataReturnData[] mDatas;
     private String mSpinnerText;
 
@@ -37,7 +37,7 @@ public class FragmentHistory extends Fragment {
         @Override
         public void handleMessage(Message msg) {
             //super.handleMessage(msg);
-            ListAdapter listAdapter = new SimpleAdapter(getActivity(), getData(), R.layout.node_list_history, new String[]{"井底压力", "套压", "液柱高度", "气体流量", "气体总量", "气体压力", "运行频率", "设定频率", "母线电压"}, new int[]{R.id.Wellpress, R.id.Taopress, R.id.Liquidhigh, R.id.Gasstandflow, R.id.Gastotalflow, R.id.Gaspress, R.id.Speed, R.id.Motortemp, R.id.Motordcbus});
+            ListAdapter listAdapter = new SimpleAdapter(getActivity(), getData(), R.layout.node_list_history, new String[]{"更新时间", "井底压力", "套压", "液柱高度", "气体流量", "气体总量", "气体压力", "运行频率", "设定频率", "母线电压"}, new int[]{R.id.Mytime, R.id.Wellpress, R.id.Taopress, R.id.Liquidhigh, R.id.Gasstandflow, R.id.Gastotalflow, R.id.Gaspress, R.id.Speed, R.id.Motortemp, R.id.Motordcbus});
             mListView.setAdapter(listAdapter);
         }
     };
@@ -85,7 +85,7 @@ public class FragmentHistory extends Fragment {
         List<Map<String, String>> list = new ArrayList<Map<String, String>>();
         Map<String, String> map;
 
-        if (mDatas == null) {
+        if (mDatas == null || mDatas.length == 0) {
             return list;
         }
 
@@ -94,6 +94,7 @@ public class FragmentHistory extends Fragment {
         mNick.setText(mSpinnerText);
         for (Utils.NodeDataReturnData data : mDatas) {
             map = new HashMap<String, String>();
+            map.put("更新时间", "更新时间: " + data.Mytime);
             map.put("井底压力", "井底压力: " + data.Data.Wellpress);
             map.put("套压", "套压: " + data.Data.Taopress);
             map.put("液柱高度", "液柱高度: " + data.Data.Liquidhigh);

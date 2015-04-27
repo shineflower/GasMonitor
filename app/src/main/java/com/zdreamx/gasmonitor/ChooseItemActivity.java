@@ -1,6 +1,8 @@
 package com.zdreamx.gasmonitor;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -209,7 +211,7 @@ public class ChooseItemActivity extends ActionBarActivity implements OnWheelScro
 
     //将字符串类型转化成Date类型
     private long parseStringToDate(String time) {
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             return sdf.parse(time).getTime();
         } catch (ParseException e) {
@@ -236,6 +238,20 @@ public class ChooseItemActivity extends ActionBarActivity implements OnWheelScro
                     Toast.makeText(this, "请选择查询井口", Toast.LENGTH_LONG).show();
                 } else if (parseStringToDate(startTime.getText().toString()) > parseStringToDate(endTime.getText().toString())) {
                     Toast.makeText(this, "开始日期不能晚于截止日期", Toast.LENGTH_LONG).show();
+                } else if (parseStringToDate(endTime.getText().toString()) - parseStringToDate(startTime.getText().toString()) > 24*60*60*1000) {  //查询时间间隔超过1天，为了服务器的负载，不允许用户查询
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("温馨提示");
+                    builder.setMessage("查询的时间间隔超过一天，请重新选择");
+                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.setCancelable(false);
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.show();
                 } else {
                     mHandler.sendEmptyMessage(REQUEST_HISTORY_DATA);
                 }
