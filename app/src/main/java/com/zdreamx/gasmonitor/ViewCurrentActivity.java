@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +61,8 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
     private static final  int MOTORTEMP = 7;
     private static final  int MOTORDCBUS = 8;
     private int mCurrentChartIndex = WELLPRESS;  //标记当前的折线图
+    private ImageView mRefreshActionView;
+    private MenuItem refreshItem;
 
     private Handler myHandler = new Handler(){ //这种方式可能会导致内存泄露，暂时不处理，以后统一解决
         @Override
@@ -94,6 +99,9 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
                 @Override
                 protected void onFailure(HttpException e, Response response) {
                     mProgressDialog.dismiss();
+                    if (mRefreshActionView != null) {
+                        mRefreshActionView.clearAnimation();
+                    }
                     Toast.makeText(context, "请求数据发送错误", Toast.LENGTH_LONG).show();
                 }
             });
@@ -155,20 +163,45 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_refresh) {
-            //刷新
-            mProgressDialog.show();
-            mIsRefreshing = true;
-            myHandler.sendEmptyMessage(0);
-
-        } else if (id == android.R.id.home) {
-            finish();
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                //刷新
+                mIsRefreshing = true;
+                showRefreshAnimation(item);
+                myHandler.sendEmptyMessage(0);
+                break;
+            case android.R.id.home:
+                finish();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showRefreshAnimation(MenuItem item) {
+
+        refreshItem = item;
+
+        //这里使用一个ImageView设置成MenuItem的ActionView，这样我们就可以使用这个ImageView显示旋转动画了
+        mRefreshActionView = new ImageView(this);
+        mRefreshActionView.setBackgroundResource(R.mipmap.ic_menu_refresh);
+        refreshItem.setActionView(mRefreshActionView);
+
+        mRefreshActionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mIsRefreshing) {
+                    return;
+                }
+                mIsRefreshing = true;
+                showRefreshAnimation(refreshItem);
+                myHandler.sendEmptyMessage(0);
+            }
+        });
+
+        //显示刷新动画
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.refresh_anim);
+        mRefreshActionView.startAnimation(animation);
     }
 
     private void refreshCurrentLineChartView() {
@@ -178,6 +211,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
         for (int i = 0; i < mNodeDatasReturnDatas.Count; i++) {
             mAxisValues.add(new AxisValue(i).setLabel(mNodeDatasReturnDatas.Datas[mNodeDatasReturnDatas.Count - 1 -i].Mytime));
         }
+
         switch (mCurrentChartIndex) {
             case WELLPRESS:
                 for (int i = 0; i < mNodeDatasReturnDatas.Count; i++) {
@@ -251,6 +285,10 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
                 cleanAllTextColor();
                 mMotordcbus.setTextColor(BLUE);
                 break;
+        }
+
+        if (mRefreshActionView != null) {
+            mRefreshActionView.clearAnimation();
         }
 
         mIsRefreshing = false;

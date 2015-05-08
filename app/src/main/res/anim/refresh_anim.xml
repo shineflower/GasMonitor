@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 设置动画之间不停顿。当使用set标签作为根标签是，interpolator插入器需要在set属性中定义才能奏效-->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/linear_interpolator">
+
+    <rotate xmlns:android="http://schemas.android.com/apk/res/android"
+        android:duration="3000"
+        android:fromDegrees="0"
+        android:toDegrees="360"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:fillAfter="true"
+        android:repeatMode="restart"
+        android:repeatCount="infinite"/>
+</set>

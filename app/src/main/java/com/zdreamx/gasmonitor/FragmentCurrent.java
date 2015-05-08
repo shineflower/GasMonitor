@@ -198,20 +198,4 @@ public class FragmentCurrent extends Fragment {
         });
         return view;
     }
-
-//    private List<Map<String,String>> getData(){
-//        List<Map<String,String>> list = new ArrayList<Map<String, String>>();
-//        Map<String,String> map = new HashMap<String,String>();
-//        map.put("nick","测试1");
-//        map.put("mobile","13548484");
-//        map.put("note","shosugjeige");
-//        list.add(map);
-//
-//        map = new HashMap<String,String>();
-//        map.put("nick","测试2");
-//        map.put("mobile","13548484");
-//        map.put("note","shosugjeige");
-//        list.add(map);
-//        return list;
-//    }
 }
