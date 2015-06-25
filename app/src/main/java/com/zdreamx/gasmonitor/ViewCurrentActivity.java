@@ -69,7 +69,7 @@ public class ViewCurrentActivity extends ActionBarActivity implements View.OnCli
         public void handleMessage(Message msg) {
             asyncExecutor.execute(new Request(apiUrl),new HttpModelHandler<Utils.NodeDatasReturnDatas>() {
                 @Override
-                protected void onSuccess(final Utils.NodeDatasReturnDatas o, Response response) {
+                protected void onSuccess(Utils.NodeDatasReturnDatas o, Response response) {
                     if (o.Result) { //返回结果正确
                         if (o.Count > 0) { //有数据
 

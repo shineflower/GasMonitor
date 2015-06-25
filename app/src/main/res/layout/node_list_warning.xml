@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="5">
+
+        <TextView
+            android:id="@+id/Logs" />
+
+        <TextView
+            android:id="@+id/Nick" />
+
+        <TextView
+            android:layout_columnSpan="2"
+            android:id="@+id/Mobile" />
+
+        <TextView
+            android:layout_columnSpan="2"
+            android:text="最新一条记录数据的详细信息:"
+            android:textSize="18sp"
+            />
+
+        <TextView
+            android:id="@+id/Id" />
+
+        <TextView
+            android:id="@+id/Latest_Mobile" />
+
+        <TextView
+            android:id="@+id/Trigger" />
+
+        <TextView
+            android:id="@+id/Message" />
+
+        <TextView
+            android:id="@+id/View" />
+
+        <TextView
+            android:id="@+id/Createtime" />
+    </GridLayout>
+
+</LinearLayout>

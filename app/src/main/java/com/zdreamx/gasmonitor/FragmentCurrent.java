@@ -174,7 +174,7 @@ public class FragmentCurrent extends Fragment {
         //return super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.fragment_current,container,false);
-        listview = (ListView) view.findViewById(R.id.cur_listview);
+        listview = (ListView) view.findViewById(R.id.current_listview);
         //建立异步请求实例
         client = LiteHttpClient.newApacheHttpClient(getActivity());
         asyncExecutor = HttpAsyncExecutor.newInstance(client);
