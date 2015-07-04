@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.loveplusplus.update.UpdateChecker;
-
 
 public class MainActivity extends ActionBarActivity implements OnClickListener {
 
@@ -39,7 +39,12 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
         setContentView(R.layout.activity_main);
         fragmentmanager = this.getFragmentManager();
         initViews();
-        setChoiceItem(0); //直接显示实时数据
+        if (getIntent().getExtras() == null) {
+            setChoiceItem(0); //直接显示实时数据
+        } else {
+            //如果是推送，直接进入报警页面
+            setChoiceItem(2);
+        }
         //检查最新版本
         UpdateChecker.checkForDialog(MainActivity.this, "http://"+getResources().getString(R.string.server_ip)+getResources().getString(R.string.server_update_file));
         //UpdateChecker.checkForNotification(MainActivity.this, "http://"+getResources().getString(R.string.server_ip)+":8080/static/update.txt");

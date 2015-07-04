@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +16,8 @@ import com.litesuits.http.exception.HttpException;
 import com.litesuits.http.request.Request;
 import com.litesuits.http.response.Response;
 import com.litesuits.http.response.handler.HttpModelHandler;
-import com.loveplusplus.update.UpdateChecker;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class LogoActivity extends Activity {
     private LiteHttpClient client;
@@ -89,6 +88,15 @@ public class LogoActivity extends Activity {
         public String Version; //版本号
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
+    }
 
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(this);
+    }
 }
