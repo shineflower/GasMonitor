@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="push_switch"
+        android:title="@string/push_setting"
+        android:persistent="true"/>
+    <Preference
+        android:key="logout"
+        android:persistent="false"
+        android:title="@string/logout"/>
+</PreferenceScreen>
