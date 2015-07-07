@@ -12,9 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.litesuits.http.LiteHttpClient;
@@ -23,6 +26,8 @@ import com.litesuits.http.exception.HttpException;
 import com.litesuits.http.request.Request;
 import com.litesuits.http.response.Response;
 import com.litesuits.http.response.handler.HttpModelHandler;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +51,8 @@ public class FragmentWarning extends Fragment {
     private List<Map<String, String>> mList;
     private Set<String> tags;
 
+    private Utils.ApiJsonWarnLog[] info;
+
     private static final int REQUEST_WARNING_DATA = 0;
     private static final String TAG = "FragmentWarning";
 
@@ -64,35 +71,13 @@ public class FragmentWarning extends Fragment {
                                 if (o.Numbers > 0) {
                                     mList = new ArrayList<Map<String, String>>();
                                     tags = new HashSet<String>();
-                                    for (Utils.ApiJsonWarnLog info : o.Info) {
-                                        Map<String, String> map = new HashMap<String, String>();
-                                        map.put("报警数据", "报警数据: " + info.Logs);
-                                        map.put("昵称", "昵称: " + info.Nick);
-                                        map.put("号码", "号码: " + info.Mobile);
-                                        map.put("Id", "Id: " + info.LatestLog.Id);
-                                        map.put("井号", "井号: " + info.LatestLog.Mobile);
-                                        map.put("触发参数", "触发参数: " + info.LatestLog.Trigger);
-                                        map.put("详细消息", "详细消息: " + info.LatestLog.Message);
-                                        map.put("是否被查看", "是否被查看: " + (info.LatestLog.View ? "是" : "否"));
-                                        map.put("创建时间", "创建时间: " + info.LatestLog.Createtime);
-                                        mList.add(map);
 
-                                        ListAdapter adapter = new SimpleAdapter(mContext, mList, R.layout.node_list_warning, new String[]{"报警数据", "昵称", "号码", "Id", "井号", "触发参数", "详细消息", "是否被查看", "创建时间"}, new int[]{R.id.Logs, R.id.Nick, R.id.Mobile, R.id.Id, R.id.Latest_Mobile, R.id.Trigger, R.id.Message, R.id.View, R.id.Createtime});
-                                        mListView.setAdapter(adapter);
-                                        mProgressDialog.dismiss();
+                                    info = o.Info;
 
-                                        //推送
-                                        tags.add(info.Mobile);  //将每个口井的名称打上tag
-                                    }
+                                    ListAdapter adapter = new WarnLogAdapter();
+                                    mListView.setAdapter(adapter);
+                                    mProgressDialog.dismiss();
 
-                                    JPushInterface.setTags(mContext, tags, new TagAliasCallback() {
-                                        @Override
-                                        public void gotResult(int requestCode, String alias, Set<String> set) {
-                                            if (requestCode == 0) {  //设置成功
-                                                Log.i(TAG, "设置成功");
-                                            }
-                                        }
-                                    });
                                 } else {
                                     Toast.makeText(mContext, "返回结果错误，请重新登录", Toast.LENGTH_LONG);
                                     mProgressDialog.dismiss();
@@ -131,5 +116,52 @@ public class FragmentWarning extends Fragment {
         mHandler.sendEmptyMessage(REQUEST_WARNING_DATA);
 
         return view;
+    }
+
+    public class WarnLogAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return info.length;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return i;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            if (info[i].Logs == 0) {
+                view = View.inflate(mContext, R.layout.node_no_warn_data, null);
+                TextView tv_nick = (TextView) view.findViewById(R.id.nick);
+                TextView tv_mobile = (TextView) view.findViewById(R.id.mobile);
+
+                tv_nick.setText(info[i].Nick);
+                tv_mobile.setText(info[i].Mobile);
+            } else {
+                view = View.inflate(mContext, R.layout.node_warn_data, null);
+
+                TextView tv_nick = (TextView) view.findViewById(R.id.nick);
+                TextView tv_mobile = (TextView) view.findViewById(R.id.mobile);
+                TextView tv_log = (TextView) view.findViewById(R.id.logs);
+                TextView tv_trigger = (TextView) view.findViewById(R.id.trigger);
+                TextView tv_message = (TextView) view.findViewById(R.id.message);
+
+                tv_nick.setText(info[i].Nick);
+                tv_mobile.setText(info[i].Mobile);
+                tv_log.setText("报警次数：" + info[i].Logs);
+                tv_trigger.setText("触发条件：" + info[i].LatestLog.Trigger);
+                tv_message.setText(info[i].LatestLog.Message);
+
+            }
+            return view;
+        }
     }
 }
