@@ -16,6 +16,9 @@ import com.litesuits.http.exception.HttpException;
 import com.litesuits.http.request.Request;
 import com.litesuits.http.response.Response;
 import com.litesuits.http.response.handler.HttpModelHandler;
+import com.zdreamx.gasmonitor.util.PreferenceUtil;
+
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * 登录页面
@@ -67,6 +70,13 @@ public class LoginActivity extends Activity {
                     editor.putString("passwd",mPassword);
                     editor.commit();
                     Intent intent = new Intent(mContext,MainActivity.class);
+
+                    if (PreferenceUtil.isUserExist(mContext) && PreferenceUtil.getPushSettings(mContext)) {
+                        JPushInterface.resumePush(getApplicationContext());
+                    } else {
+                        JPushInterface.stopPush(getApplicationContext());
+                    }
+
                     startActivity(intent);
                     finish();
                 } else {

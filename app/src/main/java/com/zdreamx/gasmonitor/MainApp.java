@@ -2,6 +2,8 @@ package com.zdreamx.gasmonitor;
 
 import android.app.Application;
 
+import com.zdreamx.gasmonitor.util.PreferenceUtil;
+
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -33,5 +35,11 @@ public class MainApp extends Application {
         super.onCreate();
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+
+        if (PreferenceUtil.isUserExist(this) && PreferenceUtil.getPushSettings(this)) {
+            JPushInterface.resumePush(this);
+        } else {
+            JPushInterface.stopPush(this);
+        }
     }
 }

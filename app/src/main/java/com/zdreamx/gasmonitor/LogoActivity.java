@@ -16,6 +16,7 @@ import com.litesuits.http.exception.HttpException;
 import com.litesuits.http.request.Request;
 import com.litesuits.http.response.Response;
 import com.litesuits.http.response.handler.HttpModelHandler;
+import com.zdreamx.gasmonitor.util.PreferenceUtil;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -64,6 +65,13 @@ public class LogoActivity extends Activity {
                 if(o.Authorize){
                     Toast.makeText(LogoActivity.this,"验证通过",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(LogoActivity.this,MainActivity.class);
+
+                    if (PreferenceUtil.isUserExist(context) && PreferenceUtil.getPushSettings(context)) {
+                        JPushInterface.resumePush(getApplicationContext());
+                    } else {
+                        JPushInterface.stopPush(getApplicationContext());
+                    }
+
                     startActivity(intent);
                     finish();
                 } else {
