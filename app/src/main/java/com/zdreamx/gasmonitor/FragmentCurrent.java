@@ -12,6 +12,9 @@ import android.support.annotation.Nullable;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -58,6 +61,7 @@ public class FragmentCurrent extends Fragment {
 
     private Set<String> pushTag = new HashSet<>();
     private ProgressDialog mProgressDialog;
+
     private Handler myHandler = new Handler(){
         @Override
         public void handleMessage(final Message msg) {
@@ -78,6 +82,7 @@ public class FragmentCurrent extends Fragment {
                             if(o.Authorize){ //数据正确
                                 if(o.Nodes.length>0) {
                                     pushTag.clear();
+                                    list.clear();
                                     for(int i=0;i<o.Nodes.length;i++){ //填充数据
                                         Map<String,String> map = new HashMap<String,String>();
                                         map.put("nick",o.Nodes[i].Nick+"  ");
@@ -188,6 +193,34 @@ public class FragmentCurrent extends Fragment {
 
         }
     };
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_view_current, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                // 刷新
+                Message msg1 = new Message();
+                msg1.what=Request_Mobile_Data;
+                msg1.arg1=0;
+                myHandler.sendMessage(msg1); //继续获取具体数据
+
+                mProgressDialog.show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Nullable
     @Override
