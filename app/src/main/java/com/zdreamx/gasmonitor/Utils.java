@@ -65,6 +65,29 @@ public class Utils {
         NodeDataReturnData[] Datas;
     }
 
+    //报警信息API JSON返回数据格式
+    public static class ApiJsonWarnLogReturn {
+        boolean  Result;             //计算结果
+        int Numbers;              //井数量
+        ApiJsonWarnLog[] Info; //具体每一口井的信息
+    }
+
+    public static class  ApiJsonWarnLog {
+        int Logs;               //这口井的报警记录数据
+        String Nick;            //昵称
+        String Mobile;            //号码
+        WarnParaLog LatestLog; //最新一条记录数据
+    }
+
+    public static class WarnParaLog {
+        int Id;
+        String Mobile;        //井号
+        String Trigger;       //触发参数 显示触发条件 比如套压xx(范围xx-xx)
+        String Message;       //详细消息 显示所有报警设置和情况
+        boolean View;         //是否被查看
+        String Createtime;    //创建时间
+    }
+
     //获取当前应用的版本号：
     public static String getVersionName(Context ctx)
     {

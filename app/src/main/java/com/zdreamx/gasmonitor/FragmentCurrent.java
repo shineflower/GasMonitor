@@ -10,7 +10,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -31,13 +35,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 /**
  * Created by zdreamx on 2015/3/26.
  */
 public class FragmentCurrent extends Fragment {
+    private static final String TAG = FragmentCurrent.class.getSimpleName();
     private final int Request_NODE_Data = 0;
     private final int Request_Mobile_Data = 1;
     private ListView listview;
@@ -48,7 +58,10 @@ public class FragmentCurrent extends Fragment {
     private int cur_listIndex; //用于异步获取数据当前点的索引值
     private  String getlatest_url;
     static List<Map<String,String>> list = new ArrayList<Map<String, String>>();//列表数据map
+
+    private Set<String> pushTag = new HashSet<>();
     private ProgressDialog mProgressDialog;
+
     private Handler myHandler = new Handler(){
         @Override
         public void handleMessage(final Message msg) {
@@ -68,13 +81,26 @@ public class FragmentCurrent extends Fragment {
                         protected void onSuccess(Utils.API_Return_Nodes o, Response response) {
                             if(o.Authorize){ //数据正确
                                 if(o.Nodes.length>0) {
+                                    pushTag.clear();
+                                    list.clear();
                                     for(int i=0;i<o.Nodes.length;i++){ //填充数据
                                         Map<String,String> map = new HashMap<String,String>();
                                         map.put("nick",o.Nodes[i].Nick+"  ");
                                         map.put("mobile",o.Nodes[i].Mobile);
                                         map.put("note",o.Nodes[i].Note);
+                                        pushTag.add(o.Nodes[i].Mobile);
                                         list.add(map);
                                     }
+
+
+                                    JPushInterface.setTags(getActivity(), JPushInterface.filterValidTags(pushTag), new TagAliasCallback() {
+                                        @Override
+                                        public void gotResult(int requestCode, String s, Set<String> set) {
+                                            if (requestCode == 0) {  //设置成功
+                                                Log.i(TAG, "标签设置成功, set = " + set.toString());
+                                            }
+                                        }
+                                    });
                                     listAdapter = new SimpleAdapter(getActivity(),list,R.layout.node_list_current,new String[]{"nick","mobile","time","status"},new int[]{R.id.nick,R.id.mobile,R.id.time,R.id.status});
                                     listview.setAdapter(listAdapter);
                                     //isGetNodes=true;
@@ -168,13 +194,41 @@ public class FragmentCurrent extends Fragment {
         }
     };
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_view_current, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_refresh:
+                // 刷新
+                Message msg1 = new Message();
+                msg1.what=Request_Mobile_Data;
+                msg1.arg1=0;
+                myHandler.sendMessage(msg1); //继续获取具体数据
+
+                mProgressDialog.show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.fragment_current,container,false);
-        listview = (ListView) view.findViewById(R.id.cur_listview);
+        listview = (ListView) view.findViewById(R.id.current_listview);
         //建立异步请求实例
         client = LiteHttpClient.newApacheHttpClient(getActivity());
         asyncExecutor = HttpAsyncExecutor.newInstance(client);
