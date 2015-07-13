@@ -168,12 +168,14 @@ public class FragmentWarning extends Fragment {
 
                 TextView tv_nick = (TextView) view.findViewById(R.id.nick);
                 TextView tv_mobile = (TextView) view.findViewById(R.id.mobile);
+                TextView tv_time = (TextView) view.findViewById(R.id.time);
                 TextView tv_log = (TextView) view.findViewById(R.id.logs);
                 TextView tv_trigger = (TextView) view.findViewById(R.id.trigger);
                 TextView tv_message = (TextView) view.findViewById(R.id.message);
 
                 tv_nick.setText(info[i].Nick);
                 tv_mobile.setText(info[i].Mobile);
+                tv_time.setText("更新时间：" + info[i].LogTime);
                 tv_log.setText("报警次数：" + info[i].Logs);
                 tv_trigger.setText("触发条件：" + info[i].LatestLog.Trigger);
                 tv_message.setText(info[i].LatestLog.Message);

@@ -75,7 +75,8 @@ public class Utils {
     public static class  ApiJsonWarnLog {
         int Logs;               //这口井的报警记录数据
         String Nick;            //昵称
-        String Mobile;            //号码
+        String Mobile;          //号码
+        String LogTime;         //时间
         WarnParaLog LatestLog; //最新一条记录数据
     }
 
