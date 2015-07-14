@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">中联煤层气监控系统(内部测试版)</string>
+    <string name="app_name">中联煤层气</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">系统设置</string>
