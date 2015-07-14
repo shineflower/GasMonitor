@@ -13,7 +13,7 @@ public class PreferenceUtil {
 
     public static boolean getPushSettings(Context context) {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean allowPush = settings.getBoolean("push_switch", false);
+        boolean allowPush = settings.getBoolean("push_switch", true);
         Log.i(TAG, "allow Push : " + allowPush);
         return allowPush;
     }
