@@ -142,7 +142,7 @@ public class FragmentCurrent extends Fragment {
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
-                                    new_map.put("time","更新时间 "+o.Mytime +"（" + getDuring(diff) + " )");
+                                    new_map.put("time","更新时间："+o.Mytime +"（" + getDuring(diff) + " )");
                                     //生成显示内容为html格式
                                     String html="<html><head></head><body>" +
                                             "<div><span>井底压力："+ String.valueOf(o.Data.Wellpress) +"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+

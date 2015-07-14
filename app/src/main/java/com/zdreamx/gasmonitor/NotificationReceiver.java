@@ -44,7 +44,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
             //打开自定义的Activity
             Intent i = new Intent(context, MainActivity.class);
-            Log.i("chengjie", "bundle: " + bundle);
+            Log.i(TAG, "bundle: " + bundle);
             i.putExtras(bundle);
             //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP );
