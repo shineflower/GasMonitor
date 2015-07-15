@@ -5,7 +5,7 @@ android {
         key {
             keyAlias 'gasmonitor.gyfuild.com'
             keyPassword '123456'
-            storeFile file('E:/Android/Development/GasMonitor/guanyi.jks')
+            storeFile file('../guanyi.jks')
             storePassword '123456'
         }
     }
@@ -43,5 +43,4 @@ dependencies {
     compile project(':autoUpdate')
     compile files('../libs/hellocharts-library-1.5.3.jar')
     compile files('../libs/jpush-sdk-release1.7.5.jar')
-    compile files('E:/Android/Development/GasMonitor/libs/jpush-sdk-release1.7.5.jar')
 }

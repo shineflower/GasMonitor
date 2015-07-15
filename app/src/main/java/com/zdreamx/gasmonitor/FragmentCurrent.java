@@ -145,10 +145,10 @@ public class FragmentCurrent extends Fragment {
                                     new_map.put("time","更新时间："+o.Mytime +"（" + getDuring(diff) + " )");
                                     //生成显示内容为html格式
                                     String html="<html><head></head><body>" +
-                                            "<div><span>井底压力："+ String.valueOf(o.Data.Wellpress) +"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
-                                            "<span style= \"float:right;padding-right:10px;\">套压："+String.valueOf(o.Data.Taopress)+"</span></div>"+
-                                            "<div><span>气体流量："+ String.valueOf(o.Data.Gasstandflow) +"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
-                                            "<span>工作频率："+ String.valueOf(o.Data.Speed) +"</span></div>"+
+                                            "井底压力："+ String.valueOf(o.Data.Wellpress) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+                                            "套压："+String.valueOf(o.Data.Taopress) + "<br><br>" +
+                                            "气体流量："+ String.valueOf(o.Data.Gasstandflow) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+                                            "工作频率："+ String.valueOf(o.Data.Speed) +
                                             "</body></html>";
                                     new_map.put("status", Html.fromHtml(html).toString());
                                     list.set(cur_listIndex,new_map);
