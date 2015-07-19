@@ -101,7 +101,7 @@ public class FragmentCurrent extends Fragment {
                                             }
                                         }
                                     });
-                                    listAdapter = new SimpleAdapter(getActivity(),list,R.layout.node_list_current,new String[]{"nick","mobile","time","status"},new int[]{R.id.nick,R.id.mobile,R.id.time,R.id.status});
+                                    listAdapter = new SimpleAdapter(getActivity(),list,R.layout.node_list_current,new String[]{"nick","mobile","time","current_wellpress","current_taopress","current_gasstandflow","current_speed"},new int[]{R.id.nick,R.id.mobile,R.id.time,R.id.current_wellpress,R.id.current_taopress,R.id.current_gasstandflow,R.id.current_speed});
                                     listview.setAdapter(listAdapter);
                                     //isGetNodes=true;
                                     Message msg1 = new Message();
@@ -142,15 +142,11 @@ public class FragmentCurrent extends Fragment {
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
-                                    new_map.put("time","更新时间："+o.Mytime +"（" + getDuring(diff) + " )");
-                                    //生成显示内容为html格式
-                                    String html="<html><head></head><body>" +
-                                            "井底压力："+ String.valueOf(o.Data.Wellpress) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
-                                            "套压："+String.valueOf(o.Data.Taopress) + "<br><br>" +
-                                            "气体流量："+ String.valueOf(o.Data.Gasstandflow) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
-                                            "工作频率："+ String.valueOf(o.Data.Speed) +
-                                            "</body></html>";
-                                    new_map.put("status", Html.fromHtml(html).toString());
+                                    new_map.put("time","更新时间：" + o.Mytime + "（" + getDuring(diff) + "）");
+                                    new_map.put("current_wellpress", "井底压力：" + o.Data.Wellpress);
+                                    new_map.put("current_taopress", "套压：" + o.Data.Taopress);
+                                    new_map.put("current_gasstandflow", "气体流量：" + o.Data.Gasstandflow);
+                                    new_map.put("current_speed", "工作频率：" + o.Data.Speed);
                                     list.set(cur_listIndex,new_map);
                                     listview.setAdapter(listAdapter);
                                     listview.deferNotifyDataSetChanged();
